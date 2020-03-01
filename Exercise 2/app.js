@@ -6,9 +6,6 @@ new Vue({
   methods: {
     alertOnClick: function() {
       alert("Hello world!");
-    },
-    updateValue: function(event) {
-      this.value = event.target.value;
     }
   }  
 });

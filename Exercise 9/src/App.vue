@@ -44,11 +44,7 @@
             />
             <label class="form-check-label" for="save-check">Store data?</label>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-
-          <!-- Exercise 2 -->
-          <!-- Only display the Form if it has NOT been submitted -->
-          <!-- Display the Data Summary ONCE the Form HAS been submitted -->
+          <button type="submit" class="btn btn-primary" @click.prevent="showUserInfo">Submit</button>
 
           <!-- Exercise 3 -->
           <!-- Edit the Example from above and create a custom "Full Name" Control -->
@@ -57,7 +53,7 @@
       </div>
     </form>
     <hr />
-    <div class="row">
+    <div class="row" v-show="submitted">
       <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -84,7 +80,13 @@ export default {
         email: '',
         password: ''
       },
-      isStored: false
+      isStored: false,
+      submitted: false
+    }
+  },
+  methods: {
+    showUserInfo() {
+      this.submitted = true;
     }
   }
 };

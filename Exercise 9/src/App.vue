@@ -3,15 +3,7 @@
     <form>
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="name"
-              v-model="userInfo.name"
-            />
-          </div>
+          <Name v-model="name"/>
           <div class="form-group">
             <label for="email">Email address</label>
             <input
@@ -45,10 +37,6 @@
             <label class="form-check-label" for="save-check">Store data?</label>
           </div>
           <button type="submit" class="btn btn-primary" @click.prevent="showUserInfo">Submit</button>
-
-          <!-- Exercise 3 -->
-          <!-- Edit the Example from above and create a custom "Full Name" Control -->
-          <!-- which still holds the First Name and Last Name Input Field -->
         </div>
       </div>
     </form>
@@ -60,7 +48,7 @@
             <h4>Your Data</h4>
           </div>
           <div class="panel-body">
-            <p>Full Name: {{userInfo.name}}</p>
+            <p>Full Name: {{name}}</p>
             <p>Mail: {{userInfo.email}}</p>
             <p>Password: {{userInfo.password}}</p>
             <p>Store in Database?: {{isStored}}</p>
@@ -72,11 +60,13 @@
 </template>
 
 <script>
+import Name from './Name.vue';
+
 export default {
   data() {
     return {
+      name: '',
       userInfo: {
-        name: '',
         email: '',
         password: ''
       },
@@ -88,6 +78,9 @@ export default {
     showUserInfo() {
       this.submitted = true;
     }
+  },
+  components: {
+    Name,
   }
 };
 </script>

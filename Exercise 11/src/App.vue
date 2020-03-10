@@ -10,16 +10,15 @@
         <h2>With computed</h2>
         <input type="text" v-model="userInput"/>
         <div class="reverse-input">{{ reversedInput }} ({{ countedLength }})</div>
-
-        <!-- Exercise 4 -->
-        <!-- Share the Computed Property rebuilding Exercise 2 via a Mixin -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { countedLength } from './countedLength.js';
 export default {
+  mixins: [countedLength],
   data() {
     return {
       userInput: ''
@@ -33,9 +32,6 @@ export default {
   computed: {
     reversedInput() {
       return this.userInput.split("").reverse().join("");
-    },
-    countedLength() {
-      return this.userInput.length;
     }
   }
 };

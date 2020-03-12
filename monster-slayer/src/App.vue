@@ -1,51 +1,21 @@
 <template>
   <div>
-    <!-- Health bar section -->
-    <section class="row">
-      <div class="small-6 columns">
-        <h1 class="text-center">YOU</h1>
-        <div class="healthbar">
-          <div class="healthbar text-center" 
-               style="background-color: green; margin: 0; color: white;"
-               :style="{width: healthBar.player + '%'}" 
-          >
-            {{ healthBar.player }}
-          </div>
-        </div>
-      </div>
-      <div class="small-6 columns">
-        <h1 class="text-center">MONSTER</h1>
-        <div class="healthbar">
-          <div class="healthbar text-center" 
-               style="background-color: green; margin: 0; color: white;"
-               :style="{width: healthBar.monster + '%'}" 
-          >
-            {{ healthBar.monster }}
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Start new game section -->
-    <section class="row controls" v-if="!gameOn">
-      <div class="small-12 columns">
-        <button id="start-game" @click="startGame()">START NEW GAME</button>
-      </div>
-    </section>
-    <!-- Action buttons section -->
-    <section class="row controls" v-else>
-      <div class="small-12 columns">
-        <button id="attack" @click="attack">ATTACK</button>
-        <button id="special-attack"  @click="specialAttack">SPECIAL ATTACK</button>
-        <button id="heal" @click="heal">HEAL</button>
-        <button id="give-up" @click="giveUp">GIVE UP</button>
-      </div>
-    </section>
+    <HealthBar :healthBar="healthBar"/>
+    <ActionButtons 
+      :gameOn="gameOn" 
+      @startGame="startGame" 
+      @giveUp="giveUp"
+      @attack="attack"
+      @specialAttack="specialAttack"
+      @heal="heal"
+    />
     <!-- Log section -->
     <section class="row log">
       <div class="small-12 columns">
         <ul>
           <li v-for="log in logs"
               :class="{'player-turn': log.isPlayer, 'monster-turn': !log.isPlayer}"
+              :key="log"
           >
             {{ log.message }}
           </li>
@@ -56,6 +26,9 @@
 </template>
 
 <script>
+  import HealthBar from './components/HealthBar.vue';
+  import ActionButtons from './components/ActionButtons.vue';
+
   export default {
     name: "App",
     data() {
@@ -141,21 +114,15 @@
         }
         return false;
       }
+    },
+    components: {
+      HealthBar,
+      ActionButtons
     }
   }
 </script>
 
 <style>
-  .text-center {
-    text-align: center;
-  }
-  .healthbar {
-    width: 80%;
-    height: 40px;
-    background-color: #eee;
-    margin: auto;
-    transition: width 500ms;
-  }
   .controls, .log {
     margin-top: 30px;
     text-align: center;
@@ -184,42 +151,5 @@
   .log ul .monster-turn {
     color: red;
     background-color: #ffc0c1;
-  }
-  button {
-    font-size: 20px;
-    background-color: #eee;
-    padding: 12px;
-    box-shadow: 0 1px 1px black;
-    margin: 10px;
-  }
-  #start-game {
-    background-color: #aaffb0;
-  }
-  #start-game:hover {
-    background-color: #76ff7e;
-  }
-  #attack {
-    background-color: #ff7367;
-  }
-  #attack:hover {
-    background-color: #ff3f43;
-  }
-  #special-attack {
-    background-color: #ffaf4f;
-  }
-  #special-attack:hover {
-    background-color: #ff9a2b;
-  }
-  #heal {
-    background-color: #aaffb0;
-  }
-  #heal:hover {
-    background-color: #76ff7e;
-  }
-  #give-up {
-    background-color: #ffffff;
-  }
-  #give-up:hover {
-    background-color: #c7c7c7;
   }
 </style>

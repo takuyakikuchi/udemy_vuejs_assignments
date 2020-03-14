@@ -1,15 +1,19 @@
 <template>
-  <section class="row log">
-    <div class="small-12 columns">
-      <ul>
-        <li
-          v-for="log in logs"
-          :class="{'player-turn': log.isPlayer, 'monster-turn': !log.isPlayer}"
-          :key="log"
-        >{{ log.message }}</li>
-      </ul>
-    </div>
-  </section>
+  <transition name="fade">
+    <section class="row log">
+      <div class="small-12 columns">
+        <ul>
+          <transition-group name="fade">
+            <li
+              v-for="log in logs"
+              :class="{'player-turn': log.isPlayer, 'monster-turn': !log.isPlayer}"
+              :key="log"
+            >{{ log.message }}</li>
+          </transition-group>
+        </ul>
+      </div>
+    </section>
+  </transition>
 </template>
 
 <script>
@@ -35,5 +39,11 @@ export default {
 .log ul .monster-turn {
   color: red;
   background-color: #ffc0c1;
+}
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  transition: opacity 500ms;
 }
 </style>
